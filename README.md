@@ -1,15 +1,17 @@
-# rinha-backend-bun
+# rinha-backend-bun-fancy
 
-To install dependencies:
+Minha tentativa ~~(super atrasada por sinal :sweat_smile:)~~ na rinha de back-end
 
-```bash
-bun install
-```
+A minha ideia aqui é criar uma aplicação mais próxima do que é utilizado no dia a dia das empresas e validar como a mesma se comporta nos pesados testes de carga da rinha e ver se aguenta a pancada.
 
-To run:
+Como um plus estou utilizando o bun + Elysia para já pegar as manhas desse carinha que promete muito ainda.
 
-```bash
-bun run index.ts
-```
+Devo criar outro projeto mais simples para validar como o Bun se sai, normalmente as pessoas começariam pelo mais fácil, mas como sou meio maluco essa versão deve sair depois hehehe.
 
-This project was created using `bun init` in bun v1.0.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Como executar?
+[WIP]
+
+## Stack
+- Bun
+- Elysia
+- Postgres
