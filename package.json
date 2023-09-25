@@ -1,0 +1,26 @@
+{
+  "name": "rinha-backend-bun",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "typeorm": "bunx ./node_modules/typeorm/cli.js",
+    "migration:generate": "bunx typeorm migration:generate -n",
+    "migration:run": "bunx typeorm migration:run"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.10.2",
+    "@types/uuid": "^9.0.4",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "elysia": "^0.7.12",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17",
+    "uuid": "^9.0.1"
+  }
+}

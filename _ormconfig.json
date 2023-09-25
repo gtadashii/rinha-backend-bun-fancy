@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "database": "db",
+  "logging": true,
+  "entities": [
+     "src/database/typeorm/entity/**/*.ts"
+  ],
+  "migrations": [
+     "src/database/typeorm/migration/**/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "src/database/typeorm/migration"
+  }
+}
