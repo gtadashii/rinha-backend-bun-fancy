@@ -1,3 +1,4 @@
+import { PersonNotFoundException } from "../http/exceptions";
 import { IPersonsRepository } from "../repository/persons.repository";
 
 export class RetrievePersonByIdUseCase {
@@ -7,8 +8,7 @@ export class RetrievePersonByIdUseCase {
   }
   async execute(id: string) {
       const person = await this.repository.retrievePersonById(id);
-      if (!person)
-          throw new Error('Person not found');
+      if (!person) throw new PersonNotFoundException();
       return person;
   }
 }
