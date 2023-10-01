@@ -14,6 +14,7 @@ export default class PersonsController {
   }
 
   public async createPerson(context: Context) {
+    console.log('[createPerson] called');
     const createPersonUseCase = new CreatePersonsonUseCase(this.personsRepository);
     const { nome, apelido, nascimento, stack } = context.body as Person;
     try {
@@ -34,6 +35,7 @@ export default class PersonsController {
   }
 
   public async retrievePersonById(context: any) {
+    console.log('[retrievePersonById] called');
     const { id } = context.params;
     const retrievePersonByIdUseCase = new RetrievePersonByIdUseCase(this.personsRepository);
     try {
@@ -48,6 +50,7 @@ export default class PersonsController {
   }
 
   public async searchPersonsByTerm(context: Context) {
+    console.log('[searchPersonsByTerm] called');
     const searchPersonByTermUseCase = new SearchPersonByTermUseCase(this.personsRepository);
     const { term } = context.query;
     try {
@@ -59,6 +62,7 @@ export default class PersonsController {
   }
 
   public async retrievePersonsCount() {
+    console.log('[retrievePersonsCount] called');
     const countPersonsUseCase = new CountPersonsUseCase(this.personsRepository);
     try {
       const count = await countPersonsUseCase.execute();

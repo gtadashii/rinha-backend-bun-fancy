@@ -3,10 +3,6 @@ services:
   api1: &api
     hostname: api1
     build: .
-    ports:
-      - "3000:3000"
-    expose:
-      - "3000"
     depends_on:
       - db
     deploy:
@@ -16,6 +12,9 @@ services:
           memory: '0.5GB'
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+      HTTP_PORT: 8080
+    links:
+      - db
 
   api2:
     <<: *api
@@ -23,6 +22,7 @@ services:
 
   db: # Banco de dados
     image: postgres
+    command: postgres -c 'max_connections=450' -c 'log_error_verbosity=terse'
     ports:
       - 5432:5432
     deploy:
@@ -30,6 +30,12 @@ services:
         limits:
           cpus: '0.75'
           memory: '1.5GB'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
+    volumes:
+      - pgdata:/data/postgres
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -40,8 +46,17 @@ services:
       - api2
     ports:
       - "9999:9999"
+    ulimits:
+      nproc: 1000000
+      nofile:
+        soft: 1000000
+        hard: 1000000
     deploy:
       resources:
         limits:
           cpus: '0.25'
           memory: '0.5GB'
+
+volumes:
+  pgdata:
+    driver: local

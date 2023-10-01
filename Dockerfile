@@ -9,4 +9,4 @@ COPY . .
 RUN bun install
 
 # start application
-CMD ["bun", "src/index.ts"]
+CMD ["bun", "src/http/server/index.ts"]
