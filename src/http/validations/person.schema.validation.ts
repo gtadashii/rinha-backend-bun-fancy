@@ -1,4 +1,4 @@
-import { t } from "elysia";
+import { t } from 'elysia';
 
 export const createPersonSchema = {
   body: t.Object({
@@ -10,28 +10,30 @@ export const createPersonSchema = {
     }),
     nascimento: t.String({
       default: undefined,
-      format: "date"
+      format: 'date',
     }),
-    stack: t.Array(t.String({
-      maxLength: 32,
-    }), {
-      default: undefined,
-    }),
+    stack: t.Array(
+      t.String({
+        maxLength: 32,
+      }),
+      {
+        default: undefined,
+      },
+    ),
   }),
-}
+};
 
 export const retrievePersonByIdSchema = {
   params: t.Object({
     id: t.String({
       default: undefined,
-      format: "uuid",
+      format: 'uuid',
     }),
   }),
-}
+};
 
 export const searchPersonByTermSchema = {
   query: t.Object({
     t: t.String(),
   }),
-}
-
+};

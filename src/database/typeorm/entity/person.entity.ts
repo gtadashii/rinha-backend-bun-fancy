@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Person {
@@ -17,15 +17,13 @@ export class Person {
   apelido: string;
 
   @Column({
-    type: "date", // should be YYYY-MM-DD format
+    type: 'date', // should be YYYY-MM-DD format
   })
   nascimento: string;
 
-  @Column(
-    {
-      type: "json",
-    }
-  )
+  @Column({
+    type: 'json',
+  })
   stack: string[];
 
   @Column()

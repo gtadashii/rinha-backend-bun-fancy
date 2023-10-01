@@ -1,5 +1,5 @@
-import Person from "../domain/person";
-import { IPersonsRepository } from "../repository/persons.repository";
+import Person from '../domain/person';
+import { IPersonsRepository } from '../repository/persons.repository';
 
 export class CreatePersonsonUseCase {
   private repository: IPersonsRepository;

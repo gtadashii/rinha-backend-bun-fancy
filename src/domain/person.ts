@@ -14,7 +14,7 @@ export default class Person {
   nascimento: string;
   stack: string[];
   serchableTerms?: string;
-  constructor(personData: PersonData){
+  constructor(personData: PersonData) {
     this.id = uuidv4();
     this.nome = personData.nome;
     this.apelido = personData.apelido;

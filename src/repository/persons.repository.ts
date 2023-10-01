@@ -1,6 +1,6 @@
-import { Repository } from "typeorm";
-import Person from "../domain/person";
-import PostgresDataSource from "../database/typeorm/datasource";
+import { Repository } from 'typeorm';
+import Person from '../domain/person';
+import PostgresDataSource from '../database/typeorm/datasource';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface IPersonsRepository {

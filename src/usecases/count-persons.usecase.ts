@@ -1,4 +1,4 @@
-import { IPersonsRepository } from "../repository/persons.repository";
+import { IPersonsRepository } from '../repository/persons.repository';
 
 export class CountPersonsUseCase {
   private repository: IPersonsRepository;
