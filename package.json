@@ -24,6 +24,7 @@
   "dependencies": {
     "elysia": "^0.7.12",
     "pg": "^8.11.3",
+    "postgres": "^3.3.5",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.17",
     "uuid": "^9.0.1"

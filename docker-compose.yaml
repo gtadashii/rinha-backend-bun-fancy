@@ -1,10 +1,38 @@
-version: '3.8'
+version: '3'
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - '9999:9999'
+    expose:
+      - '9999'
+    ulimits:
+      nproc: 1000000
+      nofile:
+        soft: 1000000
+        hard: 1000000
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api1
+      - api2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
+    networks:
+      - app_network
+
   api1: &api
     hostname: api1
     build: .
     depends_on:
       - db
+    expose:
+      - '3000'
+    networks:
+      - app_network
     deploy:
       resources:
         limits:
@@ -13,60 +41,27 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
       HTTP_PORT: 8080
-    links:
-      - db
-    networks:
-      - app_network
 
   api2:
     <<: *api
     hostname: api2
 
-  db: # Banco de dados
+  db:
     image: postgres
-    command: postgres -c 'max_connections=450' -c 'log_error_verbosity=terse'
     ports:
-      - 5432:5432
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
+    networks:
+      - app_network
     deploy:
       resources:
         limits:
           cpus: '0.75'
           memory: '1.5GB'
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db
-    volumes:
-      - pgdata:/data/postgres
-    networks:
-      - app_network
-
-  nginx: # Load Balancer
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - api1
-      - api2
-    ports:
-      - "9999:9999"
-    ulimits:
-      nproc: 1000000
-      nofile:
-        soft: 1000000
-        hard: 1000000
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: '0.5GB'
-    networks:
-      - app_network
 
 networks:
   app_network:
     driver: bridge
-
-volumes:
-  pgdata:
-    driver: local

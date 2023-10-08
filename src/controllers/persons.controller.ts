@@ -7,7 +7,7 @@ import { RetrievePersonByIdUseCase } from '../usecases/retrieve-person-by-id.use
 import { SearchPersonByTermUseCase } from '../usecases/search-person-by-term.usecase';
 import { CountPersonsUseCase } from '../usecases/count-persons.usecase';
 
-export default class PersonsController {
+class PersonsController {
   private personsRepository: PersonsRepository;
   public constructor() {
     this.personsRepository = new PersonsRepository();
@@ -24,10 +24,11 @@ export default class PersonsController {
         nascimento,
         stack,
       });
-      const createdPerson = (await createPersonUseCase.execute(personData)) as Person;
+      const createdPerson = (await createPersonUseCase.execute(personData)) as any;
       return new Response(null, { status: 201, headers: { Location: `/pessoas/${createdPerson.id}` } });
     } catch (error) {
-      if (error instanceof UsernameAlreadyTakenException) {
+      console.error('[createPerson] error', error);
+      if (error instanceof UsernameAlreadyTakenException || error instanceof PersonNotFoundException) {
         return new Response(null, { status: 422 });
       }
       return new Response(null, { status: 422 });
@@ -42,6 +43,7 @@ export default class PersonsController {
       const person = await retrievePersonByIdUseCase.execute(id);
       return new Response(JSON.stringify(person), { status: 200 });
     } catch (error) {
+      console.error('[retrievePersonById] error', error);
       if (error instanceof PersonNotFoundException) {
         return new Response(null, { status: 404 });
       }
@@ -52,11 +54,12 @@ export default class PersonsController {
   public async searchPersonsByTerm(context: Context) {
     console.log('[searchPersonsByTerm] called');
     const searchPersonByTermUseCase = new SearchPersonByTermUseCase(this.personsRepository);
-    const { term } = context.query;
+    const { t: term } = context.query;
     try {
       const persons = await searchPersonByTermUseCase.execute(term as string);
       return new Response(JSON.stringify(persons), { status: 200 });
     } catch (error) {
+      console.error('[searchPersonsByTerm] error', error);
       return new Response(null, { status: 422 });
     }
   }
@@ -68,7 +71,10 @@ export default class PersonsController {
       const count = await countPersonsUseCase.execute();
       return new Response(JSON.stringify(count), { status: 200 });
     } catch (error) {
+      console.error('[retrievePersonsCount] error', error);
       return new Response(null, { status: 422 });
     }
   }
 }
+
+export const personsController = new PersonsController();

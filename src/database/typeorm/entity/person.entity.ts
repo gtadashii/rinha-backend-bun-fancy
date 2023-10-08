@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity('persons')
 export class Person {
   @PrimaryColumn()
   id: string;
@@ -27,5 +27,10 @@ export class Person {
   stack: string[];
 
   @Column()
-  serchableTerms: string;
+  terms: string;
+
+  @Column({
+    type: 'date',
+  })
+  createdAt: string;
 }

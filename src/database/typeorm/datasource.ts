@@ -1,4 +1,6 @@
 import { DataSource } from 'typeorm';
+import { Person } from './entity/person.entity';
+import { CreatePersonsTable1696773846748 } from './migration/1696773846748-CreatePersonsTable.ts';
 
 const dir = import.meta.dir;
 
@@ -9,8 +11,8 @@ const PostgresDataSource = new DataSource({
   username: 'postgres',
   password: 'postgres',
   database: 'db',
-  entities: [`${dir}/entity/*.entity.ts}`],
-  migrations: [`${dir}/migration/*.ts}`],
+  entities: [Person],
+  migrations: [CreatePersonsTable1696773846748],
 });
 
 export default PostgresDataSource;

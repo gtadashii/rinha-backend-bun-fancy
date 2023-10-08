@@ -9,3 +9,9 @@ export class PersonNotFoundException extends Error {
     super();
   }
 }
+
+export class PersonsAlreadyExistsException extends Error {
+  constructor() {
+    super();
+  }
+}

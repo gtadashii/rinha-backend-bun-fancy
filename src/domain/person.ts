@@ -1,3 +1,4 @@
+import { Entity } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
 interface PersonData {
@@ -13,13 +14,13 @@ export default class Person {
   apelido: string;
   nascimento: string;
   stack: string[];
-  serchableTerms?: string;
+  terms?: string;
   constructor(personData: PersonData) {
     this.id = uuidv4();
     this.nome = personData.nome;
     this.apelido = personData.apelido;
     this.nascimento = personData.nascimento;
     this.stack = personData.stack;
-    this.serchableTerms = `${this.nome},${this.apelido},${this.stack.join()}`;
+    this.terms = `${this.nome},${this.apelido},${this.stack.join()}`;
   }
 }
